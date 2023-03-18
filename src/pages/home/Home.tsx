@@ -1,5 +1,5 @@
 import CardsList from 'components/cards/CardsList';
-import Search from 'components/Search';
+import Search from 'components/search/Search';
 import React, { Component } from 'react';
 
 export default class Home extends Component {

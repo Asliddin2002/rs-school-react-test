@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import Page404 from 'pages/Page404';
-import About from 'pages/About';
-import Home from 'pages/Home';
+import Page404 from 'pages/404/Page404';
+import About from 'pages/about/About';
+import Home from 'pages/home/Home';
 
 function App() {
   return (
