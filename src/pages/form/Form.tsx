@@ -12,13 +12,6 @@ import {
 import { inputValuetype } from './type';
 
 export type stateType = {
-  name: string;
-  date: string;
-  continent: string;
-  gender: string;
-  agreement: boolean;
-  image: string;
-  disable: boolean;
   data: inputValuetype[];
 };
 
@@ -27,13 +20,6 @@ export default class Form extends Component<FormInputPropsType, stateType> {
   constructor(props: FormInputPropsType) {
     super(props);
     this.state = {
-      name: ' ',
-      date: ' ',
-      continent: ' ',
-      gender: '',
-      agreement: false,
-      image: ' ',
-      disable: false,
       data: [],
     };
   }
@@ -41,13 +27,15 @@ export default class Form extends Component<FormInputPropsType, stateType> {
   name: React.RefObject<HTMLInputElement> = React.createRef();
   date: React.RefObject<HTMLInputElement> = React.createRef();
   continent: React.RefObject<HTMLSelectElement> = React.createRef();
-  gender: React.RefObject<HTMLInputElement> = React.createRef();
+  gender1: React.RefObject<HTMLInputElement> = React.createRef();
+  gender2: React.RefObject<HTMLInputElement> = React.createRef();
   agreement: React.RefObject<HTMLInputElement> = React.createRef();
   image: React.RefObject<HTMLInputElement> = React.createRef();
   reset: React.RefObject<HTMLInputElement> = React.createRef();
 
   handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
+
     const confirmation = confirm('Do you want to save ?');
     if (confirmation) {
       this.setState({
@@ -58,7 +46,9 @@ export default class Form extends Component<FormInputPropsType, stateType> {
             date: this.date.current?.value as string,
             continent: this.continent.current?.value as string,
             agreement: this.agreement.current?.checked as boolean,
-            gender: this.gender.current?.value as string,
+            gender: this.gender1.current?.checked
+              ? this.gender1.current?.value
+              : (this.gender2.current?.value as string),
             image: this.image.current?.files?.length
               ? (URL.createObjectURL(this.image.current?.files[0]) as string)
               : '',
@@ -74,16 +64,16 @@ export default class Form extends Component<FormInputPropsType, stateType> {
   render() {
     console.log(this.state.data);
     return (
-      <div className="container mx-auto gap-[30px] my-[50px] flex  justify-center px-4 ">
+      <div className="container mx-auto gap-[30px] my-[50px] flex flex-col lg:flex-row items-center lg:items-baseline justify-center px-4 ">
         <form
           onSubmit={this.handleSubmit}
-          className="flex flex-col gap-4 w-1/2 shadow-md p-[40px] self-start "
+          className="flex flex-col gap-4 w-full lg:w-1/2  shadow-md p-[40px] self-start "
         >
           <h2 className="text-center text-[28px]">Form</h2>
           <TextInput name={this.name} />
           <SelectInput continent={this.continent} />
           <DateInput date={this.date} />
-          <RadioInput gender={this.gender} />
+          <RadioInput gender1={this.gender1} gender2={this.gender2} />
           <FileInput image={this.image} />
           <CheckBoxInput agreement={this.agreement} />
           <div className="reset relative w-full">
@@ -102,7 +92,7 @@ export default class Form extends Component<FormInputPropsType, stateType> {
           {this.state.data.length ? (
             <FormCardList data={this.state.data} />
           ) : (
-            <h2 className="text-center mt-5">No informations. Create them yourself :)</h2>
+            <h2 className="text-center mt-5">No information. Create them yourself :)</h2>
           )}
         </div>
       </div>
