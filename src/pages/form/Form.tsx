@@ -1,20 +1,15 @@
-import CheckBoxInput from 'components/inputs/CheckBoxInput';
-import DateInput from 'components/inputs/DateInput';
-import FileInput from 'components/inputs/FileInput';
-import RadioInput from 'components/inputs/RadioInput';
-import SelectInput from 'components/inputs/SelectInput';
-import TextInput from 'components/inputs/TextInput';
-import FormCardList from 'components/newFormCards/FormCardList';
 import React, { Component } from 'react';
 
-export type inputValuetype = {
-  name: string;
-  date: string;
-  continent: string;
-  gender: string;
-  agreement: boolean;
-  image: string;
-};
+import FormCardList from 'components/newFormCards/FormCardList';
+import {
+  CheckBoxInput,
+  DateInput,
+  FileInput,
+  RadioInput,
+  SelectInput,
+  TextInput,
+} from '../../components/inputs';
+import { inputValuetype } from './type';
 
 export type stateType = {
   name: string;

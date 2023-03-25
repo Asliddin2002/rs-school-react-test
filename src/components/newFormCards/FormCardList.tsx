@@ -1,14 +1,6 @@
+import { inputValuetype } from 'pages/form/type';
 import React from 'react';
 import FormCard from './FormCard';
-
-export type inputValuetype = {
-  name: string;
-  date: string;
-  continent: string;
-  gender: string;
-  agreement: boolean;
-  image: string;
-};
 
 type propsType = {
   data: inputValuetype[];
