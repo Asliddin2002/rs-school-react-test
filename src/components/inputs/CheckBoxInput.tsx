@@ -1,11 +1,11 @@
 import React from 'react';
 
 type propType = {
-  data: string;
+  agreement: React.RefObject<HTMLInputElement>;
 };
 
 const CheckBoxInput = (props: propType) => {
-  const { data } = props;
+  const { agreement } = props;
   return (
     <div className="flex gap-2">
       <input
@@ -13,6 +13,7 @@ const CheckBoxInput = (props: propType) => {
         type="checkbox"
         id="personal-data"
         name="data"
+        ref={agreement}
       />
       <label htmlFor="personal-data">I consent to my personal data</label>
     </div>

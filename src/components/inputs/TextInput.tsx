@@ -1,7 +1,7 @@
 import React from 'react';
 
 type propType = {
-  name: string;
+  name: React.RefObject<HTMLInputElement>;
 };
 
 const TextInput = (props: propType) => {
@@ -15,6 +15,7 @@ const TextInput = (props: propType) => {
         id="name"
         name="name"
         placeholder="name"
+        ref={name}
       />
     </div>
   );
