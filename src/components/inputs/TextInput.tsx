@@ -19,7 +19,11 @@ const TextInput = (props: propType) => {
         placeholder="name"
         ref={name}
       />
-      {validate && <div data-testid="text-input-validation" className="text-[13px] text-red-500">Please, Enter your name</div>}
+      {validate && (
+        <div data-testid="text-input-validation" className="text-[13px] text-red-500">
+          Please, Enter your name
+        </div>
+      )}
     </div>
   );
 };

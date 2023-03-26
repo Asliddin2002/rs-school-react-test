@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import FormCardList from './FormCardList';
+import FormCard from './FormCard';
 
 const mockData = {
   name: 'Asliddin',
@@ -16,5 +17,13 @@ describe('Testing Form Card list', () => {
     render(<FormCardList data={[mockData]} />);
     const cards = screen.getAllByTestId('card');
     expect(cards.length).toBe([mockData].length);
+  });
+});
+
+describe('Testing Form Card ', () => {
+  test('Testing Form card image', () => {
+    render(<FormCard card={mockData} />);
+    const image = screen.getByTestId('card-image');
+    expect(image).toBeInTheDocument();
   });
 });
