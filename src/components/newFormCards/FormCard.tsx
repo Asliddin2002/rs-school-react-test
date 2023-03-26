@@ -8,7 +8,10 @@ type propsType = {
 const FormCard = ({ card }: propsType) => {
   const { name, image, gender, continent, date } = card;
   return (
-    <div className="shadow-md py-[15px] px-[20px] mt-9 rounded-sm flex flex-col gap-6">
+    <div
+      data-testid="card"
+      className="shadow-md py-[15px] px-[20px] mt-9 rounded-sm flex flex-col gap-6"
+    >
       <div className="flex flex-col items-center justify-center gap-2">
         <img className="w-[50px] shadow-md h-[50px] rounded-full" src={image} alt="avatar" />
         <h3>{name}</h3>

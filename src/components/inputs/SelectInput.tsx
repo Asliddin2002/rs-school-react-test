@@ -15,6 +15,7 @@ const SelectInput = (props: propType) => {
         name="country"
         id="countries"
         ref={continent}
+        data-testid="select-input"
       >
         <option value="false">Select</option>
         <option value="european">Europe</option>
@@ -22,7 +23,11 @@ const SelectInput = (props: propType) => {
         <option value="american">America</option>
         <option value="african">Africa</option>
       </select>
-      {validate && <div className="text-[13px] text-red-500">Please, Select the Continent</div>}
+      {validate && (
+        <div data-testid="text-input-validation" className="text-[13px] text-red-500">
+          Please, Select the Continent
+        </div>
+      )}
     </div>
   );
 };

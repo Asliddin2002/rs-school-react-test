@@ -11,6 +11,7 @@ const DateInput = (props: propType) => {
     <div className="flex flex-col gap-2">
       <label htmlFor="datetime">Date of Birth</label>
       <input
+        data-testid="date-input"
         className="outline-none border py-2 pl-2 rounded"
         type="date"
         id="date"
@@ -18,7 +19,11 @@ const DateInput = (props: propType) => {
         placeholder="Date"
         ref={date}
       />
-      {validate && <div className="text-[13px] text-red-500">Please, fill the input</div>}
+      {validate && (
+        <div data-testid="text-input-validation" className="text-[13px] text-red-500">
+          Please, fill the input
+        </div>
+      )}
     </div>
   );
 };

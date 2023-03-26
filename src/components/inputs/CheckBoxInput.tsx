@@ -11,6 +11,7 @@ const CheckBoxInput = (props: propType) => {
     <div>
       <div className="flex gap-2">
         <input
+          data-testid="check-input"
           className="outline-none border py-2 pl-2 rounded"
           type="checkbox"
           id="personal-data"
@@ -19,7 +20,11 @@ const CheckBoxInput = (props: propType) => {
         />
         <label htmlFor="personal-data">I consent to my personal data</label>
       </div>
-      {validate && <div className="text-[13px] text-red-500">Required</div>}
+      {validate && (
+        <div data-testid="text-input-validation" className="text-[13px] text-red-500">
+          Required
+        </div>
+      )}
     </div>
   );
 };

@@ -11,6 +11,7 @@ const FileInput = (props: propType) => {
     <div className="flex flex-col gap-2">
       <label htmlFor="file">Enter profile picture</label>
       <input
+        data-testid="file-input"
         className="outline-none border py-2 pl-2 rounded"
         type="file"
         name="file"
@@ -19,7 +20,9 @@ const FileInput = (props: propType) => {
         ref={image}
       />
       {validate && (
-        <div className="text-[13px] text-red-500">Please, Enter you profile picture</div>
+        <div data-testid="text-input-validation" className="text-[13px] text-red-500">
+          Please, Enter you profile picture
+        </div>
       )}
     </div>
   );
