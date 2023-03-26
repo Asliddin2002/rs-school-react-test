@@ -9,17 +9,20 @@ import {
   SelectInput,
   TextInput,
 } from '../../components/inputs';
-import { inputValuetype } from './type';
-
-export type stateType = {
-  data: inputValuetype[];
-};
+import { stateType } from './type';
 
 type FormInputPropsType = Record<string, undefined>;
 export default class Form extends Component<FormInputPropsType, stateType> {
   constructor(props: FormInputPropsType) {
     super(props);
     this.state = {
+      name: false,
+      date: false,
+      continent: false,
+      gender: false,
+      agreement: false,
+      image: false,
+      isvalid: true,
       data: [],
     };
   }
@@ -34,35 +37,69 @@ export default class Form extends Component<FormInputPropsType, stateType> {
   reset: React.RefObject<HTMLInputElement> = React.createRef();
 
   handleSubmit = (event: React.SyntheticEvent) => {
-    event.preventDefault();
+    const name = this.name.current?.value;
+    const date = this.date.current?.value;
+    const continent = this.continent.current?.value;
+    const agreement = this.agreement.current?.checked;
+    const gender = this.gender1.current?.checked
+      ? this.gender1.current?.value
+      : this.gender2.current?.checked
+      ? this.gender2.current?.value
+      : '';
+    const image = this.image.current?.files?.length
+      ? (URL.createObjectURL(this.image.current?.files[0]) as string)
+      : '';
 
-    const confirmation = confirm('Do you want to save ?');
-    if (confirmation) {
+    if (name == '') {
+      this.setState({ name: true });
+    }
+    if (date == '') {
+      this.setState({ date: true });
+    }
+    if (continent == 'false') {
+      this.setState({ continent: true });
+    }
+    if (agreement == false) {
+      this.setState({ agreement: true });
+    }
+    if (gender == '') {
+      this.setState({ gender: true });
+    }
+    if (image == '') {
+      this.setState({ image: true });
+    }
+
+    const isValidate = !!name && !!date && !!continent && agreement && !!gender && !!image;
+
+    event.preventDefault();
+    if (isValidate) {
       this.setState({
         data: [
           ...this.state.data,
           {
-            name: this.name.current?.value as string,
-            date: this.date.current?.value as string,
-            continent: this.continent.current?.value as string,
-            agreement: this.agreement.current?.checked as boolean,
-            gender: this.gender1.current?.checked
-              ? this.gender1.current?.value
-              : (this.gender2.current?.value as string),
-            image: this.image.current?.files?.length
-              ? (URL.createObjectURL(this.image.current?.files[0]) as string)
-              : '',
+            name: name as string,
+            date: date as string,
+            continent: continent as string,
+            agreement: agreement as boolean,
+            gender: gender as string,
+            image: image,
           },
         ],
       });
-      this.reset.current?.click();
-    } else {
+      alert('Data has been saved successfully!');
+      this.setState({
+        name: false,
+        date: false,
+        continent: false,
+        gender: false,
+        agreement: false,
+        image: false,
+      });
       this.reset.current?.click();
     }
   };
 
   render() {
-    console.log(this.state.data);
     return (
       <div className="container mx-auto gap-[30px] my-[50px] flex flex-col lg:flex-row items-center lg:items-baseline justify-center px-4 ">
         <form
@@ -70,12 +107,12 @@ export default class Form extends Component<FormInputPropsType, stateType> {
           className="flex flex-col gap-4 w-full lg:w-1/2  shadow-md p-[40px] self-start "
         >
           <h2 className="text-center text-[28px]">Form</h2>
-          <TextInput name={this.name} />
-          <SelectInput continent={this.continent} />
-          <DateInput date={this.date} />
-          <RadioInput gender1={this.gender1} gender2={this.gender2} />
-          <FileInput image={this.image} />
-          <CheckBoxInput agreement={this.agreement} />
+          <TextInput name={this.name} validate={this.state.name} />
+          <SelectInput continent={this.continent} validate={this.state.continent} />
+          <DateInput date={this.date} validate={this.state.date} />
+          <RadioInput gender1={this.gender1} gender2={this.gender2} validate={this.state.gender} />
+          <FileInput image={this.image} validate={this.state.image} />
+          <CheckBoxInput agreement={this.agreement} validate={this.state.agreement} />
           <div className="reset relative w-full">
             <input className="absolute -z-10 left-[50%]" type="reset" ref={this.reset} />
             <button
@@ -88,7 +125,7 @@ export default class Form extends Component<FormInputPropsType, stateType> {
         </form>
         <hr />
         <div className="w-1/2">
-          <h2 className="text-center text-[28px]">Personal informations</h2>
+          <h2 className="text-center text-[28px]">Personal information</h2>
           {this.state.data.length ? (
             <FormCardList data={this.state.data} />
           ) : (

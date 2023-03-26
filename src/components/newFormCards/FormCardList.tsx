@@ -9,8 +9,8 @@ const FormCardList = ({ data }: propsType) => {
   return (
     <div className="">
       <div className="w-full flex flex-wrap gap-3 ">
-        {data?.map((item) => (
-          <FormCard key={item.image} card={item} />
+        {data?.map((item, i) => (
+          <FormCard key={i} card={item} />
         ))}
       </div>
     </div>

@@ -2,10 +2,11 @@ import React from 'react';
 
 type propType = {
   name: React.RefObject<HTMLInputElement>;
+  validate: boolean;
 };
 
 const TextInput = (props: propType) => {
-  const { name } = props;
+  const { name, validate } = props;
   return (
     <div className="flex flex-col gap-2">
       <label htmlFor="name">Your Name</label>
@@ -17,6 +18,7 @@ const TextInput = (props: propType) => {
         placeholder="name"
         ref={name}
       />
+      {validate && <div className="text-[13px] text-red-500">Please, Enter your name</div>}
     </div>
   );
 };

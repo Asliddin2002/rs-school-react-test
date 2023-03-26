@@ -2,10 +2,11 @@ import React from 'react';
 
 type propType = {
   continent: React.RefObject<HTMLSelectElement>;
+  validate: boolean;
 };
 
 const SelectInput = (props: propType) => {
-  const { continent } = props;
+  const { continent, validate } = props;
   return (
     <div className="flex flex-col gap-2">
       <label htmlFor="countries">Choose a Continent:</label>
@@ -21,6 +22,7 @@ const SelectInput = (props: propType) => {
         <option value="american">America</option>
         <option value="african">Africa</option>
       </select>
+      {validate && <div className="text-[13px] text-red-500">Please, Select the Continent</div>}
     </div>
   );
 };

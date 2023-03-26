@@ -2,10 +2,11 @@ import React from 'react';
 
 type propType = {
   date: React.RefObject<HTMLInputElement>;
+  validate: boolean;
 };
 
 const DateInput = (props: propType) => {
-  const { date } = props;
+  const { date, validate } = props;
   return (
     <div className="flex flex-col gap-2">
       <label htmlFor="datetime">Date of Birth</label>
@@ -17,6 +18,7 @@ const DateInput = (props: propType) => {
         placeholder="Date"
         ref={date}
       />
+      {validate && <div className="text-[13px] text-red-500">Please, fill the input</div>}
     </div>
   );
 };
