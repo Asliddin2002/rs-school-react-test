@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useRef, useState } from 'react';
 
 import FormCardList from 'components/newFormCards/FormCardList';
 import {
@@ -9,130 +9,125 @@ import {
   SelectInput,
   TextInput,
 } from '../../components/inputs';
-import { stateType } from './type';
+import { stateType, inputValuetype } from './type';
 
-type FormInputPropsType = Record<string, undefined>;
-export default class Form extends Component<FormInputPropsType, stateType> {
-  constructor(props: FormInputPropsType) {
-    super(props);
-    this.state = {
-      name: false,
-      date: false,
-      continent: false,
-      gender: false,
-      agreement: false,
-      image: false,
-      isvalid: true,
-      data: [],
-    };
-  }
+const Form = () => {
+  const [values, setValues] = useState<stateType>({
+    name: false,
+    date: false,
+    continent: false,
+    gender: false,
+    agreement: false,
+    image: false,
+    isvalid: true,
+  });
+  const [data, setData] = useState<inputValuetype[] | null>([]);
 
-  name: React.RefObject<HTMLInputElement> = React.createRef();
-  date: React.RefObject<HTMLInputElement> = React.createRef();
-  continent: React.RefObject<HTMLSelectElement> = React.createRef();
-  gender1: React.RefObject<HTMLInputElement> = React.createRef();
-  gender2: React.RefObject<HTMLInputElement> = React.createRef();
-  agreement: React.RefObject<HTMLInputElement> = React.createRef();
-  image: React.RefObject<HTMLInputElement> = React.createRef();
-  reset: React.RefObject<HTMLInputElement> = React.createRef();
+  const nameRef = useRef<HTMLInputElement>(null);
+  const dateRef = useRef<HTMLInputElement>(null);
+  const continentRef = useRef<HTMLSelectElement>(null);
+  const gender1Ref = useRef<HTMLInputElement>(null);
+  const gender2Ref = useRef<HTMLInputElement>(null);
+  const agreementRef = useRef<HTMLInputElement>(null);
+  const imageRef = useRef<HTMLInputElement>(null);
+  const resetRef = useRef<HTMLInputElement>(null);
 
-  handleSubmit = (event: React.SyntheticEvent) => {
-    const name = this.name.current?.value;
-    const date = this.date.current?.value;
-    const continent = this.continent.current?.value;
-    const agreement = this.agreement.current?.checked;
-    const gender = this.gender1.current?.checked
-      ? this.gender1.current?.value
-      : this.gender2.current?.checked
-      ? this.gender2.current?.value
+  const handleSubmit = (event: React.SyntheticEvent) => {
+    const name = nameRef.current?.value as string;
+    const date = dateRef.current?.value;
+    const continent = continentRef.current?.value;
+    const agreement = agreementRef.current?.checked;
+    const gender = gender1Ref.current?.checked
+      ? gender1Ref.current?.value
+      : gender2Ref.current?.checked
+      ? gender2Ref.current?.value
       : '';
-    const image = this.image.current?.files?.length
-      ? (URL.createObjectURL(this.image.current?.files[0]) as string)
+    const image = imageRef.current?.files?.length
+      ? (URL.createObjectURL(imageRef.current?.files[0]) as string)
       : '';
 
     if (name == '') {
-      this.setState({ name: true });
+      setValues((prev) => ({ ...prev, name: true }));
     }
     if (date == '') {
-      this.setState({ date: true });
+      setValues((prev) => ({ ...prev, date: true }));
     }
     if (continent == 'false') {
-      this.setState({ continent: true });
+      setValues((prev) => ({ ...prev, continent: true }));
     }
     if (agreement == false) {
-      this.setState({ agreement: true });
+      setValues((prev) => ({ ...prev, agreement: true }));
     }
     if (gender == '') {
-      this.setState({ gender: true });
+      setValues((prev) => ({ ...prev, gender: true }));
     }
     if (image == '') {
-      this.setState({ image: true });
+      setValues((prev) => ({ ...prev, image: true }));
     }
-
     const isValidate = !!name && !!date && !!continent && agreement && !!gender && !!image;
 
     event.preventDefault();
     if (isValidate) {
-      this.setState({
-        data: [
-          ...this.state.data,
-          {
-            name: name as string,
-            date: date as string,
-            continent: continent as string,
-            agreement: agreement as boolean,
-            gender: gender as string,
-            image: image,
-          },
-        ],
-      });
+      setData((prev) => [
+        ...(prev as inputValuetype[]),
+        {
+          name: name as string,
+          date: date as string,
+          continent: continent as string,
+          agreement: agreement as boolean,
+          gender: gender as string,
+          image: image,
+        },
+      ]);
+
       alert('Data has been saved successfully!');
-      this.setState({
+      setValues({
         name: false,
         date: false,
         continent: false,
         gender: false,
         agreement: false,
         image: false,
+        isvalid: true,
       });
-      this.reset.current?.click();
+      resetRef.current?.click();
     }
   };
 
-  render() {
-    return (
-      <div className="container mx-auto gap-[30px] my-[50px] flex flex-col lg:flex-row items-center lg:items-baseline justify-center px-4 ">
-        <form
-          onSubmit={this.handleSubmit}
-          className="flex flex-col gap-4 w-full lg:w-1/2  shadow-md p-[40px] self-start "
-        >
-          <h2 className="text-center text-[28px]">Form</h2>
-          <TextInput name={this.name} validate={this.state.name} />
-          <SelectInput continent={this.continent} validate={this.state.continent} />
-          <DateInput date={this.date} validate={this.state.date} />
-          <RadioInput gender1={this.gender1} gender2={this.gender2} validate={this.state.gender} />
-          <FileInput image={this.image} validate={this.state.image} />
-          <CheckBoxInput agreement={this.agreement} validate={this.state.agreement} />
-          <div className="reset relative w-full">
-            <input className="absolute -z-10 left-[50%]" type="reset" ref={this.reset} />
-            <button
-              type="submit"
-              className="p-2.5 ml-2 z-10 w-full text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Submit
-            </button>
-          </div>
-        </form>
-        <hr />
-        <div className="w-1/2">
-          <h2 className="text-center text-[28px]">Personal information</h2>
-          {this.state.data.length ? (
-            <FormCardList data={this.state.data} />
-          ) : (
-            <h2 className="text-center mt-5">No information. Create them yourself :)</h2>
-          )}
+  return (
+    <div className="container mx-auto gap-[30px] my-[50px] flex flex-col lg:flex-row items-center lg:items-baseline justify-center px-4 ">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-4 w-full lg:w-1/2  shadow-md p-[40px] self-start "
+      >
+        <h2 className="text-center text-[28px]">Form</h2>
+        <TextInput name={nameRef} validate={values.name} />
+        <SelectInput continent={continentRef} validate={values.continent} />
+        <DateInput date={dateRef} validate={values.date} />
+        <RadioInput gender1={gender1Ref} gender2={gender2Ref} validate={values.gender} />
+        <FileInput image={imageRef} validate={values.image} />
+        <CheckBoxInput agreement={agreementRef} validate={values.agreement} />
+        <div className="reset relative w-full">
+          <input className="absolute -z-10 left-[50%]" type="reset" ref={resetRef} />
+          <button
+            type="submit"
+            className="p-2.5 ml-2 z-10 w-full text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            Submit
+          </button>
         </div>
+      </form>
+      <hr />
+      <div className="w-1/2">
+        <h2 className="text-center text-[28px]">Personal information</h2>
+        {data?.length ? (
+          <FormCardList data={data} />
+        ) : (
+          <h2 className="text-center mt-5">No information. Create them yourself :)</h2>
+        )}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+export default Form;

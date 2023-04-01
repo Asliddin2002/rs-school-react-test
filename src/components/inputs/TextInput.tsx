@@ -1,7 +1,7 @@
 import React from 'react';
 
 type propType = {
-  name: React.RefObject<HTMLInputElement>;
+  name: React.RefObject<HTMLInputElement> | null;
   validate: boolean;
 };
 

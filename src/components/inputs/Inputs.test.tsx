@@ -1,58 +1,42 @@
-import React, { Component } from 'react';
+import React, { Component, useRef } from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import { TextInput, SelectInput, RadioInput, FileInput, DateInput, CheckBoxInput } from './index';
 
-class MockTextInput extends Component<{ validation: boolean }, string> {
-  name: React.RefObject<HTMLInputElement> = React.createRef();
+type propsType = {
+  validation: boolean;
+};
 
-  render() {
-    return <TextInput name={this.name} validate={this.props.validation} />;
-  }
-}
+const MockTextInput = (props: propsType) => {
+  const nameRef = useRef<HTMLInputElement>(null);
+  return <TextInput name={nameRef} validate={props.validation} />;
+};
 
-class MockSelectInput extends Component<{ validation: boolean }, string> {
-  continent: React.RefObject<HTMLSelectElement> = React.createRef();
+const MockSelectInput = (props: propsType) => {
+  const continentRef = useRef<HTMLSelectElement>(null);
+  return <SelectInput continent={continentRef} validate={props.validation} />;
+};
+const MockRadioInput = (props: propsType) => {
+  const gender1Ref = useRef<HTMLInputElement>(null);
+  const gender2Ref = useRef<HTMLInputElement>(null);
+  return <RadioInput gender1={gender1Ref} gender2={gender2Ref} validate={props.validation} />;
+};
+const MockFileInput = (props: propsType) => {
+  const imageRef = useRef<HTMLInputElement>(null);
 
-  render() {
-    return <SelectInput continent={this.continent} validate={this.props.validation} />;
-  }
-}
+  return <FileInput image={imageRef} validate={props.validation} />;
+};
+const MockDateInput = (props: propsType) => {
+  const dateRef = useRef<HTMLInputElement>(null);
 
-class MockRadioInput extends Component<{ validation: boolean }, string> {
-  gender1: React.RefObject<HTMLInputElement> = React.createRef();
-  gender2: React.RefObject<HTMLInputElement> = React.createRef();
+  return <DateInput date={dateRef} validate={props.validation} />;
+};
+const MockCheckboxInput = (props: propsType) => {
+  const agreementRef = useRef<HTMLInputElement>(null);
 
-  render() {
-    return (
-      <RadioInput gender1={this.gender1} gender2={this.gender2} validate={this.props.validation} />
-    );
-  }
-}
+  return <CheckBoxInput agreement={agreementRef} validate={props.validation} />;
+};
 
-class MockFileInput extends Component<{ validation: boolean }, string> {
-  image: React.RefObject<HTMLInputElement> = React.createRef();
-
-  render() {
-    return <FileInput image={this.image} validate={this.props.validation} />;
-  }
-}
-
-class MockDateInput extends Component<{ validation: boolean }, string> {
-  date: React.RefObject<HTMLInputElement> = React.createRef();
-
-  render() {
-    return <DateInput date={this.date} validate={this.props.validation} />;
-  }
-}
-
-class MockCheckboxInput extends Component<{ validation: boolean }, string> {
-  agreement: React.RefObject<HTMLInputElement> = React.createRef();
-
-  render() {
-    return <CheckBoxInput agreement={this.agreement} validate={this.props.validation} />;
-  }
-}
 
 describe('Test for text-input', () => {
   test('Test text-input value', () => {

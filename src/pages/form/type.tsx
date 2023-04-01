@@ -15,5 +15,5 @@ export type stateType = {
   agreement: boolean;
   image: boolean;
   isvalid: boolean;
-  data: inputValuetype[];
+  // data: inputValuetype[];
 };
