@@ -61,7 +61,9 @@ const Form = () => {
       </form>
       <hr />
       <div className="w-1/2">
-        <h2 data-testid="infos-title" className="text-center text-[28px]">Personal information</h2>
+        <h2 data-testid="infos-title" className="text-center text-[28px]">
+          Personal information
+        </h2>
         {data?.length ? (
           <FormCardList data={data} />
         ) : (
