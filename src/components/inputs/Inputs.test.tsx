@@ -1,4 +1,4 @@
-import React, { Component, useRef } from 'react';
+import React, { useRef } from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import { TextInput, SelectInput, RadioInput, FileInput, DateInput, CheckBoxInput } from './index';
@@ -36,7 +36,6 @@ const MockCheckboxInput = (props: propsType) => {
 
   return <CheckBoxInput agreement={agreementRef} validate={props.validation} />;
 };
-
 
 describe('Test for text-input', () => {
   test('Test text-input value', () => {

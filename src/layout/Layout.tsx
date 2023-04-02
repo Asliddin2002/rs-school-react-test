@@ -7,7 +7,7 @@ export declare interface AppProps {
 
 const Layout = (props: AppProps) => {
   return (
-    <div>
+    <div data-testid="layout">
       <Header />
       {props.children}
     </div>
