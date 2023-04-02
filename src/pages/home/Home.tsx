@@ -3,7 +3,7 @@ import Search from 'components/search/Search';
 import React from 'react';
 const Home = () => {
   return (
-    <div className="container mx-auto my-[50px] px-4">
+    <div data-testid="home" className="container mx-auto my-[50px] px-4">
       <Search />
       <CardsList />
     </div>
