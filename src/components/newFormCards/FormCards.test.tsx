@@ -2,8 +2,9 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import FormCardList from './FormCardList';
 import FormCard from './FormCard';
+import { inputValuetype } from 'pages/form/type';
 
-const mockData = {
+const mockData: inputValuetype<string> = {
   name: 'Asliddin',
   image: 'image',
   gender: 'male',

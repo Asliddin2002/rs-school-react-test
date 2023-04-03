@@ -2,7 +2,7 @@ import { inputValuetype } from 'pages/form/type';
 import React from 'react';
 
 type propsType = {
-  card: inputValuetype;
+  card: inputValuetype<string>;
 };
 
 const FormCard = ({ card }: propsType) => {

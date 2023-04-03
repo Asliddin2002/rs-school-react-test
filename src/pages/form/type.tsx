@@ -1,10 +1,10 @@
-export type inputValuetype = {
+export type inputValuetype<T> = {
   name: string;
   date: string;
   continent: string;
   gender: string;
   agreement: boolean;
-  image: string;
+  image: T;
 };
 
 export type stateType = {
@@ -15,5 +15,4 @@ export type stateType = {
   agreement: boolean;
   image: boolean;
   isvalid: boolean;
-  // data: inputValuetype[];
 };

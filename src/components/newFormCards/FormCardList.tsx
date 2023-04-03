@@ -3,7 +3,7 @@ import React from 'react';
 import FormCard from './FormCard';
 
 type propsType = {
-  data: inputValuetype[];
+  data: inputValuetype<string>[];
 };
 const FormCardList = ({ data }: propsType) => {
   return (
