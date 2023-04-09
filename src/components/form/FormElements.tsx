@@ -32,9 +32,11 @@ const FormElements = (props: propsType) => {
       <h2 className="text-center text-[28px]">Form</h2>
 
       <div className="flex flex-col gap-2">
-        <label htmlFor="name">Your Name</label>
+        <label data-testid="label" htmlFor="name">
+          Your Name
+        </label>
         <input
-          data-testid="text-input"
+          data-testid="input"
           className="outline-none border py-2 pl-2 rounded"
           type="text"
           id="name"
@@ -46,11 +48,13 @@ const FormElements = (props: propsType) => {
         </div>
       </div>
       <div className="flex flex-col gap-2">
-        <label htmlFor="countries">Choose a Continent:</label>
+        <label data-testid="label" htmlFor="countries">
+          Choose a Continent:
+        </label>
         <select
           className="outline-none border py-2 pl-2 rounded"
           id="countries"
-          data-testid="select-input"
+          data-testid="input"
           {...register('continent', { required: true })}
         >
           <option value="">Select</option>
@@ -64,9 +68,11 @@ const FormElements = (props: propsType) => {
         </div>
       </div>
       <div className="flex flex-col gap-2">
-        <label htmlFor="datetime">Date of Birth</label>
+        <label data-testid="label" htmlFor="datetime">
+          Date of Birth
+        </label>
         <input
-          data-testid="date-input"
+          data-testid="input"
           className="outline-none border py-2 pl-2 rounded"
           type="date"
           id="date"
@@ -78,16 +84,20 @@ const FormElements = (props: propsType) => {
         </div>
       </div>
       <div className="flex flex-col gap-2">
-        <label htmlFor="switcher">Your gender</label>
+        <label data-testid="label" htmlFor="switcher">
+          Your gender
+        </label>
         <div className="flex gap-2">
           <input
-            data-testid="radio-input1"
+            data-testid="input"
             type="radio"
             id="male"
             value="male"
             {...register('gender', { required: true })}
           />
-          <label htmlFor="male">Male</label>
+          <label data-testid="label" htmlFor="male">
+            Male
+          </label>
           <br />
           <input
             data-testid="radio-input2"
@@ -103,9 +113,11 @@ const FormElements = (props: propsType) => {
         </div>
       </div>
       <div className="flex flex-col gap-2">
-        <label htmlFor="file">Enter profile picture</label>
+        <label data-testid="label" htmlFor="file">
+          Enter profile picture
+        </label>
         <input
-          data-testid="file-input"
+          data-testid="input"
           className="outline-none border py-2 pl-2 rounded"
           type="file"
           id="file"
@@ -121,7 +133,7 @@ const FormElements = (props: propsType) => {
       <div>
         <div className="flex gap-2">
           <input
-            data-testid="check-input"
+            data-testid="input"
             className="outline-none border py-2 pl-2 rounded"
             type="checkbox"
             id="personal-data"
@@ -129,7 +141,9 @@ const FormElements = (props: propsType) => {
               required: true,
             })}
           />
-          <label htmlFor="personal-data">I consent to my personal data</label>
+          <label data-testid="label" htmlFor="personal-data">
+            I consent to my personal data
+          </label>
         </div>
         <div data-testid="text-input-validation" className="text-[13px] text-red-500">
           {errors.agreement && <span>This field is required</span>}
