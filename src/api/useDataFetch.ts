@@ -16,7 +16,6 @@ const useDataFetch = (search: string) => {
       .finally(() => {
         setLoading(false);
       });
-    console.log('a');
   }, [baseUrl]);
 
   return { data, loading };
